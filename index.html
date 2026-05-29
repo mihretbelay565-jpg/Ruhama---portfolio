@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ruhama Belay | Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#c9a84c">
+<style>
+:root{--bg:#090909;--gold:#c9a84c;--gold-light:#e8c97a;--white:#f5f0e8;--gray:#888878;--card:#131313}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--white);font-family:'DM Sans',sans-serif;overflow-x:hidden}
+body::after{content:'';position:fixed;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);z-index:1001}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:18px 28px;background:rgba(9,9,9,0.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(201,168,76,0.15)}
+.logo{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;color:var(--gold);letter-spacing:3px;text-decoration:none}
+.logo span{color:var(--white)}
+.hamburger{display:flex;flex-direction:column;gap:5px;cursor:pointer;padding:6px;z-index:1100}
+.hamburger span{display:block;width:26px;height:2px;background:var(--gold);border-radius:4px;transition:all 0.3s ease;transform-origin:center}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.menu-overlay{position:fixed;inset:0;background:rgba(9,9,9,0.98);z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;opacity:0;pointer-events:none;transition:opacity 0.3s ease;overflow-y:auto;padding:90px 24px 60px}
+.menu-overlay.open{opacity:1;pointer-events:all}
+.nav-links{display:flex;flex-direction:column;align-items:center;gap:24px;width:100%}
+.nav-links a{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:700;color:var(--white);text-decoration:none;letter-spacing:3px;display:flex;align-items:center;gap:16px;transition:color 0.2s}
+.nav-links a:hover{color:var(--gold)}
+.resume-toggle-btn{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:700;color:var(--white);background:none;border:none;cursor:pointer;letter-spacing:3px;display:flex;align-items:center;gap:16px;transition:color 0.2s;padding:0}
+.resume-toggle-btn:hover{color:var(--gold)}
+.resume-arrow{font-size:1rem;transition:transform 0.3s}
+.resume-arrow.open{transform:rotate(180deg)}
+.resume-panel{display:none;width:100%;max-width:520px;background:var(--card);border:1px solid rgba(201,168,76,0.2);border-radius:12px;padding:28px;margin-top:12px}
+.resume-panel.show{display:block}
+.res-label{font-size:0.68rem;color:var(--gold);letter-spacing:3px;text-transform:uppercase;margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid rgba(201,168,76,0.2)}
+.res-section{margin-bottom:24px}
+.timeline-item{position:relative;padding-left:16px;border-left:1px solid rgba(201,168,76,0.25);padding-bottom:18px}
+.timeline-item::before{content:'';position:absolute;left:-4px;top:5px;width:7px;height:7px;background:var(--gold);border-radius:50%;box-shadow:0 0 8px rgba(201,168,76,0.7)}
+.t-date{font-size:0.65rem;color:var(--gold);letter-spacing:1px;margin-bottom:3px}
+.t-role{font-size:0.98rem;font-weight:700;color:var(--white);font-family:'Cormorant Garamond',serif;letter-spacing:1px}
+.t-org{font-size:0.78rem;color:var(--gray);margin-bottom:5px}
+.t-desc{font-size:0.8rem;color:#aaa898;line-height:1.6}
+.skill-pill{display:inline-block;background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.3);color:var(--gold-light);font-size:0.72rem;padding:4px 12px;border-radius:2px;margin:3px;letter-spacing:1px}
+section{min-height:100vh;position:relative;z-index:1}
+#home{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding:120px 32px 60px;gap:6px}
+.greeting{font-size:1rem;color:var(--gold);letter-spacing:4px;text-transform:uppercase}
+.name-heading{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,12vw,5rem);font-weight:700;line-height:1;color:var(--white)}
+.name-heading .highlight{color:var(--gold)}
+.tagline{font-size:0.9rem;color:var(--gray);margin-top:10px;letter-spacing:2px;text-transform:uppercase}
+.gold-line{width:60px;height:1px;background:var(--gold);margin:16px 0}
+#about{padding:100px 32px 60px;display:flex;flex-direction:column;gap:24px}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:700;letter-spacing:2px}
+.section-title .highlight{color:var(--gold)}
+.about-card{background:var(--card);border:1px solid rgba(201,168,76,0.15);border-radius:12px;padding:24px;display:flex;flex-direction:column;gap:14px}
+.about-card p{font-size:0.92rem;line-height:1.75;color:#ccc8be}
+.lang-tag{display:inline-block;background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.3);color:var(--gold-light);font-size:0.75rem;padding:3px 10px;border-radius:2px;margin:3px;letter-spacing:1px}
+.skills-grid{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+#projects{padding:80px 32px 60px;display:flex;flex-direction:column;gap:24px}
+.project-card{background:var(--card);border:1px solid rgba(201,168,76,0.15);border-radius:12px;padding:24px;display:flex;flex-direction:column;gap:10px;transition:border-color 0.3s,transform 0.3s}
+.project-card:hover{border-color:rgba(201,168,76,0.5);transform:translateY(-3px)}
+.project-tag{font-size:0.65rem;color:var(--gold);letter-spacing:2px;text-transform:uppercase}
+.project-title{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:var(--white)}
+.project-desc{font-size:0.85rem;color:#aaa898;line-height:1.7}
+#contact{padding:80px 32px 80px;display:flex;flex-direction:column;align-items:center;gap:20px;text-align:center}
+.find-me{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:700;letter-spacing:3px;text-transform:uppercase}
+.find-me-sub{font-size:0.85rem;color:var(--gray);letter-spacing:2px;text-transform:uppercase}
+.find-me-sub span{color:var(--gold)}
+.social-links{display:flex;gap:14px;justify-content:center;margin-top:8px;flex-wrap:wrap}
+.social-btn{width:50px;height:50px;background:transparent;border:1px solid rgba(201,168,76,0.5);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.3s;text-decoration:none}
+.social-btn:hover{background:var(--gold);border-color:var(--gold);transform:translateY(-3px)}
+.social-btn svg{width:20px;height:20px;fill:var(--gold);transition:fill 0.3s}
+.social-btn:hover svg{fill:var(--bg)}
+footer{text-align:center;padding:28px;font-size:0.72rem;color:var(--gray);border-top:1px solid rgba(201,168,76,0.1);letter-spacing:2px;text-transform:uppercase}
+.fade-in{opacity:0;transform:translateY(20px);transition:opacity 0.7s ease,transform 0.7s ease}
+.fade-in.visible{opacity:1;transform:none}
+.rotary-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.25);border-radius:4px;padding:8px 16px;margin-top:8px;font-size:0.82rem;color:var(--gold-light);letter-spacing:1px}
+</style>
+</head>
+<body>
+<nav>
+<a href="#home" class="logo">R<span>B</span></a>
+<div class="hamburger" id="hamburger" onclick="toggleMenu()">
+<span></span><span></span><span></span>
+</div>
+</nav>
+<div class="menu-overlay" id="menuOverlay">
+<div class="nav-links">
+<a href="#home" onclick="toggleMenu()">✦ Home</a>
+<a href="#about" onclick="toggleMenu()">✦ About</a>
+<button class="resume-toggle-btn" onclick="toggleResume()">✦ Resume <span class="resume-arrow" id="resumeArrow">▾</span></button>
+</div>
+<div class="resume-panel" id="resumePanel">
+<div class="res-section">
+<p class="res-label">Experience</p>
+<div class="timeline-item">
+<p class="t-date">CURRENT</p>
+<p class="t-role">Graphic Design Learner</p>
+<p class="t-org">Zeleman Communication</p>
+<p class="t-desc">Learning professional graphic design, visual storytelling, and brand communication in a real agency environment.</p>
+</div>
+<div class="timeline-item">
+<p class="t-date">ONGOING</p>
+<p class="t-role">Writing Enthusiast</p>
+<p class="t-org">Independent</p>
+<p class="t-desc">Passionate about crafting compelling stories, creative writing, and content that connects with audiences.</p>
+</div>
+</div>
+<div class="res-section">
+<p class="res-label">Community</p>
+<div class="timeline-item">
+<p class="t-date">MEMBER</p>
+<p class="t-role">Abugida Rotary Club</p>
+<p class="t-org">Rotary International</p>
+<p class="t-desc">Active member contributing to community service, leadership development, and humanitarian initiatives.</p>
+</div>
+</div>
+<div class="res-section">
+<p class="res-label">Skills</p>
+<span class="skill-pill">Canva</span>
+<span class="skill-pill">CapCut</span>
+<span class="skill-pill">Video Editing</span>
+<span class="skill-pill">Graphic Design</span>
+<span class="skill-pill">Creative Writing</span>
+<span class="skill-pill">Content Creation</span>
+<span class="skill-pill">Visual Storytelling</span>
+<span class="skill-pill">Social Media</span>
+</div>
+</div>
+<div style="margin-top:20px;display:flex;flex-direction:column;align-items:center;gap:24px;">
+<a href="#projects" onclick="toggleMenu()" style="font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:700;color:var(--white);text-decoration:none;letter-spacing:3px;">✦ Projects</a>
+<a href="#contact" onclick="toggleMenu()" style="font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:700;color:var(--white);text-decoration:none;letter-spacing:3px;">✦ Contact</a>
+</div>
+</div>
+<section id="home">
+<p class="greeting">✦ Creative Portfolio</p>
+<h1 class="name-heading">I'm <span class="highlight">RUHAMA<br>BELAY</span></h1>
+<div class="gold-line"></div>
+<p class="tagline">Writer · Designer · Storyteller</p>
+</section>
+<section id="about">
+<h2 class="section-title fade-in"><span class="highlight">INTRO</span>DUCE MYSELF</h2>
+<div class="about-card fade-in">
+<p>Hi! I'm Ruhama — a passionate writer and creative currently learning graphic design at <strong style="color:var(--gold)">Zeleman Communication</strong>. Words have always been my first love, and now I'm combining that with the power of visual design.</p>
+<p>I believe great content is both seen and felt. Whether it's a caption, a design, or a video edit — I pour intention into everything I create.</p>
+<p>Skilled in <span class="lang-tag">Canva</span> <span class="lang-tag">CapCut</span> <span class="lang-tag">Video Editing</span> and passionate about <span class="lang-tag">Creative Writing</span> and <span class="lang-tag">Visual Storytelling</span></p>
+</div>
+<div class="fade-in">
+<div class="rotary-badge">🌍 Member — Abugida Rotary Club · Community Service &amp; Leadership</div>
+</div>
+<div class="fade-in">
+<p class="res-label">What I Do</p>
+<div class="skills-grid">
+<span class="skill-pill">Canva Design</span>
+<span class="skill-pill">CapCut Editing</span>
+<span class="skill-pill">Video Production</span>
+<span class="skill-pill">Creative Writing</span>
+<span class="skill-pill">Content Planning</span>
+<span class="skill-pill">Visual Storytelling</span>
+<span class="skill-pill">Social Media Content</span>
+<span class="skill-pill">Graphic Design</span>
+</div>
+</div>
+<div class="fade-in">
+<p class="res-label">Languages</p>
+<div class="skills-grid">
+<span class="skill-pill">🇪🇹 Amharic — Native</span>
+<span class="skill-pill">🇬🇧 English — Fluent</span>
+</div>
+</div>
+</section>
+<section id="projects">
+<h2 class="section-title fade-in"><span class="highlight">MY</span> WORK</h2>
+<div class="project-card fade-in">
+<p class="project-tag">✦ Graphic Design</p>
+<p class="project-title">Brand Visuals & Social Media</p>
+<p class="project-desc">Creating eye-catching brand visuals, social media posts, and promotional graphics that capture attention and communicate stories effectively.</p>
+<div class="skills-grid">
+<span class="skill-pill">Canva</span><span class="skill-pill">Visual Design</span><span class="skill-pill">Branding</span>
+</div>
+</div>
+<div class="project-card fade-in">
+<p class="project-tag">✦ Video Editing</p>
+<p class="project-title">Short-Form Video Content</p>
+<p class="project-desc">Crafting engaging short-form videos with smooth transitions, text overlays, and storytelling edits for social media platforms.</p>
+<div class="skills-grid">
+<span class="skill-pill">CapCut</span><span class="skill-pill">Video Editing</span><span class="skill-pill">Storytelling</span>
+</div>
+</div>
+<div class="project-card fade-in">
+<p class="project-tag">✦ Creative Writing</p>
+<p class="project-title">Stories & Content Writing</p>
+<p class="project-desc">Writing compelling captions, creative stories, and content that resonates with audiences and builds genuine connection.</p>
+<div class="skills-grid">
+<span class="skill-pill">Creative Writing</span><span class="skill-pill">Copywriting</span><span class="skill-pill">Content Strategy</span>
+</div>
+</div>
+</section>
+<section id="contact">
+<h2 class="find-me fade-in">FIND ME ON</h2>
+<p class="find-me-sub fade-in">Feel free to <span>connect</span> with me</p>
+<div class="social-links fade-in">
+<a href="mailto:your@email.com" class="social-btn" title="Email">
+<svg viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+</a>
+<a href="https://instagram.com/yourprofile" class="social-btn" title="Instagram" target="_blank">
+<svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+</a>
+<a href="https://tiktok.com/@yourprofile" class="social-btn" title="TikTok" target="_blank">
+<svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.19 8.19 0 004.79 1.53V6.77a4.84 4.84 0 01-1.02-.08z"/></svg>
+</a>
+</div>
+</section>
+<footer>Copyright © 2026 Ruhama Belay ✦ All Rights Reserved</footer>
+<script>
+function toggleMenu(){
+var h=document.getElementById('hamburger');
+var m=document.getElementById('menuOverlay');
+h.classList.toggle('open');
+m.classList.toggle('open');
+if(!m.classList.contains('open')){
+document.getElementById('resumePanel').classList.remove('show');
+document.getElementById('resumeArrow').classList.remove('open');
+}}
+function toggleResume(){
+document.getElementById('resumePanel').classList.toggle('show');
+document.getElementById('resumeArrow').classList.toggle('open');
+}
+var observer=new IntersectionObserver(function(entries){
+entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});
+},{threshold:0.1});
+document.querySelectorAll('.fade-in').forEach(function(el){observer.observe(el);});
+</script>
+</body>
+</html>
