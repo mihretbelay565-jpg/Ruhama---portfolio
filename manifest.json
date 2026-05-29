@@ -1,22 +1,21 @@
 {
-  "name": "Ruhama Belay | Portfolio",
+  "name": "Ruhama Belay Portfolio",
   "short_name": "Ruhama",
-  "description": "Ruhama Belay — Writer, Designer & Storyteller",
-  "start_url": "/",
+  "start_url": "/Ruhama---portfolio/",
   "display": "standalone",
   "background_color": "#090909",
   "theme_color": "#c9a84c",
   "icons": [
     {
-      "src": "icons/icon-192.png",
+      "src": "avatar.jpg",
       "sizes": "192x192",
-      "type": "image/png",
+      "type": "image/jpeg",
       "purpose": "any maskable"
     },
     {
-      "src": "icons/icon-512.png",
+      "src": "avatar.jpg",
       "sizes": "512x512",
-      "type": "image/png",
+      "type": "image/jpeg",
       "purpose": "any maskable"
     }
   ]
